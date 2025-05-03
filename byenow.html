@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>buy now</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: #fff;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+    .car-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .car-header img {
+      max-width: 500px;
+      width: 100%;
+    }
+    .car-details {
+      max-width: 600px;
+    }
+    .price {
+      font-size: 24px;
+      margin: 10px 0;
+      color: #d32f2f;
+    }
+    .specs, .features, .you-may-like {
+      margin-top: 40px;
+    }
+    .specs ul, .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+    }
+    .specs li, .feature {
+      flex: 1 1 45%;
+      margin: 10px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .add-to-cart-btn, .buy-now-btn {
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 5px;
+    }
+    .add-to-cart-btn {
+      background-color: #da1111;
+    }
+    .buy-now-btn {
+      background-color: #2e7d32;
+    }
+    .image-gallery {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .image-gallery img {
+      width: 100px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .you-may-like-cars {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+    }
+    .like-card {
+      min-width: 150px;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      background: #f4f4f4;
+    }
+    .like-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .like-card.active {
+      border: 2px solid #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="car-header">
+      <img src="https://i.imgur.com/h1Jx3kk.png" alt="Vanguard CX2 Convertible" />
+      <div class="car-details">
+        <h1>Vanguard CX2 Convertible</h1>
+        <p class="price">Starting at <strong>$59/day</strong></p>
+        <p>
+          Elevate your journey with the Ford Mustang Convertible, the epitome of American muscle and open-air excitement.
+        </p>
+        <div class="button-group">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <div class="specs">
+          <ul>
+            <li>🚗 Convertible</li>
+            <li>⚙️ Automatic</li>
+            <li>🔧 5.0-liter V8</li>
+            <li>👨‍👧‍👧‍👦 4 passengers</li>
+            <li>🏋️ 450 HP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="image-gallery">
+      <img src="https://i.imgur.com/h1Jx3kk.png" alt="front" />
+      <img src="https://i.imgur.com/UygugfY.png" alt="side" />
+      <img src="https://i.imgur.com/vMYpEQy.png" alt="rear" />
+    </div>
+
+    <div class="features">
+      <h2>Car Features</h2>
+      <div class="features-grid">
+        <div class="feature">Convertible Top</div>
+        <div class="feature">Sport Mode</div>
+        <div class="feature">Infotainment System</div>
+        <div class="feature">Advanced Safety</div>
+        <div class="feature">Leather Interior</div>
+        <div class="feature">Iconic Design</div>
+      </div>
+    </div>
+
+    <div class="you-may-like">
+      <h2>You may also like</h2>
+      <div class="you-may-like-cars">
+        <div class="like-card">
+          <img src="https://i.imgur.com/jRYZpNe.png" alt="Horizon Mirage" />
+          <p>Horizon Mirage</p>
+        </div>
+        <div class="like-card active">
+          <img src="https://i.imgur.com/v1Ay7OB.png" alt="Vanguard Phoenix" />
+          <p>Vanguard Phoenix</p>
+        </div>
+        <div class="like-card">
+          <img src="https://i.imgur.com/Cc2V0uX.png" alt="Apex Autos Typhoon" />
+          <p>Apex Autos Typhoon</p>
+        </div>
+        <div class="like-card">
+          <img src="https://i.imgur.com/7KD5MLM.png" alt="Radiant Solstice" />
+          <p>Radiant Solstice</p>
+        </div>
+        <div class="like-card">
+          <img src="https://i.imgur.com/gAtJbdN.png" alt="Aurora X9 Nebula" />
+          <p>Aurora X9 Nebula</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

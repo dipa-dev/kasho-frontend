@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+        url('image_hover/dorge background.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-container {
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      color: white;
+      animation: slideIn 0.8s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .form-row .input-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 45px 14px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .input-group input::placeholder {
+      color: #ccc;
+    }
+
+
+    .register-btn {
+      width: 100%;
+      padding: 14px;
+      background: #299dff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .register-btn:hover {
+      background: #007bff;
+    }
+
+    .login-link {
+      font-size: 13px;
+      color: #ccc;
+      margin-top: 20px;
+    }
+
+    .login-link img {
+      vertical-align: middle;
+      width: 16px;
+      margin-right: 5px;
+    }
+
+    .login-link a {
+      color: #6c9eff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ccc;
+      font-size: 16px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <form id="submitForm">
+      <h2>Create new account.</h2>
+
+
+
+      <div class="form-row">
+        <div class="input-group">
+          <input type="text" placeholder="First Name" required id="firstName">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Last Name" required id="lastName">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="email" placeholder="Email" required id="email">
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="Password" required id="password">
+        <i class="fa-solid fa-unlock"></i>
+      </div>
+      <div style="color: red;" id="message">
+       
+      </div>
+
+      <button type="submit" class="register-btn">Create Account</button>
+
+      <div class="login-link">
+        <ion-icon name="person-sharp"></ion-icon>
+        Already a member? <a href="login.html">Log In</a>
+      </div>
+    </form>
+  </div>
+  <script>
+   
+
+    document.getElementById("submitForm").addEventListener("submit", async (e) =>{
+      let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let message = document.getElementById("message");
+      e.preventDefault();
+      console.log(firstName, lastName, email, password, "testing");
+      try {
+        let data = await fetch("http://localhost:5000/api/auth/register", {
+          method: "Post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ firstName, lastName, email, password }),
+        })
+        let res = await data.json();
+        if(res.code == 400){
+          message.innerText = res.message;
+        }
+      } catch (error) {
+        console.error("Error while submitting data", error);
+      }
+    })
+
+    // const submitForm = async () => {
+    
+    // }
+  </script>
+</body>
+
+</html>
