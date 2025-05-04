@@ -50,6 +50,7 @@
       top: -10px;
       right: -15px;
     }
+
     .container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -69,6 +70,12 @@
       width: 90%;
       filter: drop-shadow(0 50px 20px #0009);
       margin-bottom: 15px;
+      transition: transform 0.3s;
+    }
+
+    .card img:hover {
+      transform: scale(1.05);
+      cursor: pointer;
     }
 
     .card .title {
@@ -82,20 +89,6 @@
       font-size: 14px;
       letter-spacing: 5px;
       margin-bottom: 10px;
-    }
-
-    .card button {
-      background-color: #353432;
-      color: white;
-      padding: 6px 14px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .card button:hover {
-      background-color: #555;
     }
 
     @media (max-width: 992px) {
@@ -118,57 +111,50 @@
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Search..." />
     </div>
-    <div class="cart">🛒 <span id="cartCount">0</span></div>
+   
   </div>
 
   <div class="container" id="productContainer"></div>
 
   <script>
     const products = [
-      { title: "Ferrari LaFerrari diecast scale model car collectible", price: 1400, image: "images/image1.png" },
-      { title: "Toyota AE86 diecast scale miniature car model", price: 1550, image: "images/image2.png" },
-      { title: "1970 Dodge Charger Fast & Furious diecast Scale Model Car - Big Size", price: 1290, image: "images/image3.png" },
-      { title: "Mclaren 720s diecast scale model car collectible", price: 1500, image: "images/image4.png" },
-      { title: "Scuderia Ferrari 2025 Team Charles Leclerc Cap - Red", price: 500, image: "images/image5.png" },
-      { title: "McLaren New Era 9SEVENTY Special Edition Miami GP Cap - White", price: 500, image: "images/image6.png" },
-      { title: "LScuderia Ferrari Puma Team Knitted Cap - Red", price: 500, image: "images/image7.png" },
-      { title: "Fernando Alonso Team Cap - Green", price: 500, image: "images/image8.png" },
-      { title: "McLaren New Era 9FIFTY Essentials Pre Curve Cap - Black", price: 500, image: "images/image9.png" },
-      { title: "F1 Race Course", price: 1200, image: "images/image10.png" },
-      { title: "Marlboro senna", price: 1300, image: "images/image11.png" }, 
-      { title: "F1 Scuderia polo", price: 1400, image: "images/image12.png" },
-      { title: "F1 X Marlbora polo", price: 1000, image: "images/image13.png" },
-      { title: "Scuderia Ferrari 2025 Team 1/2 Zip Sweat", price: 1600, image: "images/image14.png" }, 
-      { title: "Red Car – Brooch Enamel Pin", price: 200, image: "images/image15.png" },
-      { title: "Shoey Daniel Ricciardo Chibi – Sticker", price: 20, image: "images/image16.png" },
-      { title: "Carlos Sainz – Sticker", price: 20, image: "images/image17.png" }
+      { title: "Ferrari LaFerrari diecast scale model car collectible", price: 1400, image: "images/image1.png", link: "products/byenow1.html" },
+      { title: "Toyota AE86 diecast scale miniature car model", price: 1550, image: "images/image2.png", link: "products/byenow2.html" },
+      { title: "1970 Dodge Charger Fast & Furious diecast Scale Model Car - Big Size", price: 1290, image: "images/image3.png", link: "products/byenow3.html" },
+      { title: "Mclaren 720s diecast scale model car collectible", price: 1500, image: "images/image4.png", link: "products/byenow4.html" },
+      { title: "Scuderia Ferrari 2025 Team Charles Leclerc Cap - Red", price: 500, image: "images/image5.png", link: "products/byenow5.html" },
+      { title: "McLaren New Era 9SEVENTY Special Edition Miami GP Cap - White", price: 500, image: "images/image6.png", link: "products/byenow6.html" },
+      { title: "LScuderia Ferrari Puma Team Knitted Cap - Red", price: 500, image: "images/image7.png", link: "products/byenow7.html" },
+      { title: "Fernando Alonso Team Cap - Green", price: 500, image: "images/image8.png", link: "products/byenow8.html" },
+      { title: "McLaren New Era 9FIFTY Essentials Pre Curve Cap - Black", price: 500, image: "images/image9.png", link: "products/byenow9.html" },
+      { title: "F1 Race Course", price: 1200, image: "images/image10.png", link: "products/byenow10.html" },
+      { title: "Marlboro senna", price: 1300, image: "images/image11.png", link: "products/byenow11.html" },
+      { title: "F1 Scuderia polo", price: 1400, image: "images/image12.png", link: "products/byenow12.html" },
+      { title: "F1 X Marlbora polo", price: 1000, image: "images/image13.png", link: "products/byenow13.html" },
+      { title: "Scuderia Ferrari 2025 Team 1/2 Zip Sweat", price: 1600, image: "images/image14.png", link: "products/byenow14.html" },
+      { title: "Red Car – Brooch Enamel Pin", price: 200, image: "images/image15.png", link: "products/byenow15.html" },
+      { title: "Shoey Daniel Ricciardo Chibi – Sticker", price: 20, image: "images/image16.png", link: "products/byenow16.html" },
+      { title: "Carlos Sainz – Sticker", price: 20, image: "images/image17.png", link: "products/byenow17.html" }
     ];
 
     const container = document.getElementById("productContainer");
     const searchInput = document.getElementById("searchInput");
-    let cartCount = 0;
 
     function displayProducts(list) {
       container.innerHTML = "";
       list.forEach(product => {
         const card = document.createElement("div");
         card.className = "card";
-                      card.innerHTML = `
-                <img src="${product.image}" alt="${product.title}" />
-                <div class="title">${product.title}</div>
-                <div class="price">₹${product.price}</div>
-                <button onclick="addToCart()">Add To Cart</button>
-              `;
-
-
+        card.innerHTML = `
+          <a href="${product.link}">
+            <img src="${product.image}" alt="${product.title}" />
+          </a>
+          <div class="title">${product.title}</div>
+          <div class="price">₹${product.price}</div>
+        `;
         container.appendChild(card);
       });
     }
-/*
-    function addToCart() {
-      cartCount++;
-      document.getElementById("cartCount").textContent = cartCount;
-    }*/
 
     searchInput.addEventListener("input", () => {
       const searchTerm = searchInput.value.toLowerCase();
@@ -180,6 +166,7 @@
 
     // Initial render
     displayProducts(products);
+    
   </script>
 </body>
 </html>

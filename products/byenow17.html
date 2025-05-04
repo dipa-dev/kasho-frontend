@@ -18,10 +18,42 @@
       line-height: 1.6;
       padding: 20px;
     }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .cart-icon {
+      font-size: 24px;
+      text-decoration:none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-icon span {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 3px 7px;
+      font-size: 14px;
+    }
+
     .container {
       max-width: 1200px;
       margin: auto;
     }
+
     .car-header {
       display: flex;
       flex-wrap: wrap;
@@ -31,6 +63,7 @@
     .car-header img {
       max-width: 500px;
       width: 100%;
+      cursor: zoom-in;
     }
     .car-details {
       max-width: 600px;
@@ -40,9 +73,7 @@
       margin: 10px 0;
       color: #d32f2f;
     }
-    .specs, .features, .you-may-like {
-      margin-top: 40px;
-    }
+    
     .specs ul, .features-grid {
       display: flex;
       flex-wrap: wrap;
@@ -58,19 +89,14 @@
       gap: 10px;
       margin-top: 15px;
     }
-    .add-to-cart-btn, .buy-now-btn {
+    .add-to-cart-btn {
       padding: 10px 20px;
       color: white;
       border: none;
       cursor: pointer;
       font-weight: 600;
       border-radius: 5px;
-    }
-    .add-to-cart-btn {
       background-color: #da1111;
-    }
-    .buy-now-btn {
-      background-color: #2e7d32;
     }
     .image-gallery {
       display: flex;
@@ -81,6 +107,7 @@
       width: 100px;
       height: auto;
       border-radius: 8px;
+      cursor: zoom-in;
     }
     .you-may-like-cars {
       display: flex;
@@ -97,53 +124,74 @@
     .like-card img {
       width: 100%;
       border-radius: 8px;
+      cursor: zoom-in;
     }
     .like-card.active {
       border: 2px solid #d32f2f;
     }
+
+    /* Zoom overlay */
+    .zoom-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .zoom-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .zoom-overlay:after {
+      content: "×";
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <div class="top-bar">
+    <div class="logo">🛍️ KASHO Store</div>
+    <a href="checkout.html" class="cart-icon">
+      🛒 <span id="cart-count">0</span>
+    </a>
   <div class="container">
     <div class="car-header">
-      <img src="https://i.imgur.com/h1Jx3kk.png" alt="Vanguard CX2 Convertible" />
+      <img src="/images\image17.png" alt="images\image1.png" onclick="zoomImage(this.src)"/>
       <div class="car-details">
-        <h1>Vanguard CX2 Convertible</h1>
-        <p class="price">Starting at <strong>$59/day</strong></p>
-        <p>
-          Elevate your journey with the Ford Mustang Convertible, the epitome of American muscle and open-air excitement.
-        </p>
+        <h1>Carlos Sainz – Sticker</h1>
+        <p class="price"> <strong>₹ 20</strong></p>
+       
         <div class="button-group">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
+          <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+         
         </div>
-        <div class="specs">
-          <ul>
-            <li>🚗 Convertible</li>
-            <li>⚙️ Automatic</li>
-            <li>🔧 5.0-liter V8</li>
-            <li>👨‍👧‍👧‍👦 4 passengers</li>
-            <li>🏋️ 450 HP</li>
-          </ul>
-        </div>
+       
       </div>
     </div>
 
     <div class="image-gallery">
-      <img src="https://i.imgur.com/h1Jx3kk.png" alt="front" />
-      <img src="https://i.imgur.com/UygugfY.png" alt="side" />
-      <img src="https://i.imgur.com/vMYpEQy.png" alt="rear" />
+      <img src="https://dotbadges.com/wp-content/uploads/2022/02/Sainz-2-510x510.webp" alt="front" onclick="zoomImage(this.src)"/>
+     
     </div>
 
     <div class="features">
       <h2>Car Features</h2>
       <div class="features-grid">
-        <div class="feature">Convertible Top</div>
-        <div class="feature">Sport Mode</div>
-        <div class="feature">Infotainment System</div>
-        <div class="feature">Advanced Safety</div>
-        <div class="feature">Leather Interior</div>
-        <div class="feature">Iconic Design</div>
+        <div class="feature">Matte Finished</div>
+        <div class="feature">Self Adhesive</div>
+        
       </div>
     </div>
 
@@ -173,5 +221,28 @@
       </div>
     </div>
   </div>
+  <script>
+    function addToCart() {
+      const product = {
+        title: "Carlos Sainz – Sticker",
+        price: 20,
+        image: "/images/image17.png"
+      };
+  
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+  
+      updateCartCount();
+    }
+  
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+  
+    // Call on page load
+    updateCartCount();
+</script>
 </body>
 </html>
