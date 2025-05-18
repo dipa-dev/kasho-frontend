@@ -135,54 +135,54 @@
 <body>
   <div class="form-container">
     <form class="login-form" id="submitForm">
-      <h2>adminlogin</h2>
+      <h2>Admin Login</h2>
       <p>Please login to your account</p>
 
-      <label>Email </label>
+      <label>Email</label>
       <input type="text" placeholder="Enter your email or username" required id="email">
 
       <label>Password</label>
       <input type="password" placeholder="Enter your password" required id="password">
       <div id="message" style="color: red;"></div>
-      
+
       <button type="submit" class="login-btn">Login</button>
 
-      
+      <div class="bottom-link">
+        Don't have an account? <a href="admin-register.html">Register as Admin</a>
+      </div>
     </form>
   </div>
 
   <script>
-
-    document.getElementById("submitForm").addEventListener("submit", async (e) =>{
-
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    let message = document.getElementById("message");
+    document.getElementById("submitForm").addEventListener("submit", async (e) => {
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let message = document.getElementById("message");
 
       e.preventDefault();
-      // console.log(firstName, lastName, email, password, "testing");
+
       try {
-        let data = await fetch("http://localhost:5000/api/auth/signin", {
-          method: "Post",
+        let data = await fetch("http://localhost:5000/api/auth/admin/signin", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, password }),
-        })
+        });
+
         let res = await data.json();
-        if(res.status == 400){
+
+        if (res.status == 400) {
           message.innerText = res.message;
         }
-        console.log(res, "test");
-        if(res.status == 200){
-          location.href = "http://localhost:5500/index.html";
+
+        if (data.ok) {
+          location.href = "http://localhost:5500/admin-dashboard.html";
         }
       } catch (error) {
         console.error("Error while submitting data", error);
       }
-    })
-
+    });
   </script>
 </body>
 </html>

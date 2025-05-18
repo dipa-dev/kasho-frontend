@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Product</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f9f9f9;
+      font-size: 16px;
+      color: #333;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+    }
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 18px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Edit Product</h1>
+  </div>
+
+  <div class="form-container">
+    <form id="editProductForm">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input type="text" id="productName" name="productName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+          <option value="">Select Category</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="sellingPrice">Selling Price</label>
+        <input type="number" id="sellingPrice" name="sellingPrice" required />
+      </div>
+
+      <div class="form-group">
+        <label for="mrp">MRP</label>
+        <input type="number" id="mrp" name="mrp" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="imageUrl">Image URL</label>
+        <input type="text" id="imageUrl" name="imageUrl" />
+      </div>
+
+      <div class="form-group">
+        <label for="qty">Quantity</label>
+        <input type="number" id="qty" name="qty" required />
+      </div>
+
+      <button type="submit">Update Product</button>
+    </form>
+  </div>
+
+  <script>
+    const categorySelect = document.getElementById("category");
+    const editForm = document.getElementById("editProductForm");
+    const productId = new URLSearchParams(window.location.search).get("id");
+
+    // Fetch categories
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/category");
+        const data = await res.json();
+        if (data.categories) {
+          data.categories.forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat._id;
+            option.textContent = cat.name;
+            categorySelect.appendChild(option);
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching categories", error);
+      }
+    };
+
+    // Fetch product details
+    const fetchProductDetails = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/product/${productId}`);
+        const data = await res.json();
+        if (res.ok && data.singleProduct) {
+          const p = data.singleProduct;
+          document.getElementById("productName").value = p.productName;
+          document.getElementById("sellingPrice").value = p.sellingPrice;
+          document.getElementById("mrp").value = p.mrp;
+          document.getElementById("description").value = p.description;
+          document.getElementById("imageUrl").value = p.imageUrl;
+          document.getElementById("qty").value = p.qty;
+          categorySelect.value = p.category._id || p.category;
+        } else {
+          alert("Failed to load product data.");
+        }
+      } catch (err) {
+        console.error("Error fetching product", err);
+      }
+    };
+
+    // Handle form submission
+    editForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const updatedProduct = {
+        productName: document.getElementById("productName").value,
+        category: document.getElementById("category").value,
+        sellingPrice: document.getElementById("sellingPrice").value,
+        mrp: document.getElementById("mrp").value,
+        description: document.getElementById("description").value,
+        imageUrl: document.getElementById("imageUrl").value,
+        qty: document.getElementById("qty").value,
+      };
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedProduct),
+        });
+
+        const result = await res.json();
+        if (res.ok) {
+          alert("Product updated successfully!");
+          window.location.href = "admin-dashboard.html"
+        } else {
+          alert(result.message || "Update failed.");
+        }
+      } catch (error) {
+        console.error("Error updating product", error);
+        alert("Failed to update product.");
+      }
+    });
+
+    // Load categories & product on page load
+    fetchCategories().then(fetchProductDetails);
+  </script>
+
+</body>
+</html>

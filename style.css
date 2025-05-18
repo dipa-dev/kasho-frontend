@@ -596,4 +596,18 @@ background-position: center;
       font-size: 16px;
       cursor: pointer;
     }
+
+    .admin-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.admin-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
   
