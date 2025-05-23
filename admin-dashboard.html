@@ -5,92 +5,150 @@
   <title>Admin Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
+      font-family: 'Inter', sans-serif;
+      background: #f0f5f2;
+      color: #2f4f4f;
     }
 
     header {
-      background: #007bff;
+      background: linear-gradient(to right, #38b000, #70e000);
       color: white;
-      padding: 20px;
+      padding: 20px 30px;
       text-align: center;
+      font-size: 26px;
+      font-weight: 600;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
 
     .container {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 30px;
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.6s ease-in-out;
     }
 
     .top-buttons {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
+      justify-content: flex-end;
+      margin-bottom: 25px;
     }
 
     .top-buttons button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
+      background: linear-gradient(to right, #2e7d32, #66bb6a);
       color: white;
       border: none;
-      border-radius: 5px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .top-buttons button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #1b5e20, #43a047);
     }
 
     .product-list {
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .product-item {
-      border-bottom: 1px solid #ccc;
-      padding: 10px 0;
+      background: #f9fff9;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      border-left: 6px solid #8bc34a;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .product-item:hover {
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .product-info {
+      font-size: 16px;
+      line-height: 1.6;
     }
 
     .product-actions button {
       margin-left: 10px;
-      padding: 6px 12px;
+      padding: 10px 16px;
       font-size: 14px;
-      background-color: #28a745;
-      color: white;
+      font-weight: 600;
       border: none;
-      border-radius: 3px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .product-actions button.delete {
-      background-color: #dc3545;
+    .product-actions .edit {
+      background: #43a047;
+      color: white;
+    }
+
+    .product-actions .edit:hover {
+      background: #2e7d32;
+    }
+
+    .product-actions .delete {
+      background: #c62828;
+      color: white;
+    }
+
+    .product-actions .delete:hover {
+      background: #b71c1c;
+    }
+
+    @media (max-width: 768px) {
+      .product-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .product-actions {
+        margin-top: 10px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Admin Dashboard</h1>
-  </header>
+
+  <header>Admin Dashboard</header>
 
   <div class="container">
     <div class="top-buttons">
-      <button onclick="location.href='add-product.html'">Add Product</button>
-      <!-- <button onclick="showProductList()">View Products</button> -->
+      <button onclick="location.href='add-product.html'">+ Add Product</button>
     </div>
 
     <div id="content">
-      <!-- Product list loads here -->
+      <!-- Product list will be loaded here -->
     </div>
   </div>
 
   <script>
     const content = document.getElementById("content");
 
-    // Load and display product list
     async function showProductList() {
       try {
         const res = await fetch("http://localhost:5000/api/products");
@@ -100,13 +158,14 @@
         products.forEach(p => {
           html += `
             <div class="product-item">
-              <div>
-                <strong>${p.productName}</strong> - ${p.category.name || p.category}
-                <br>₹${p.sellingPrice} / ₹${p.mrp}
-                <br>Qty: ${p.qty}
+              <div class="product-info">
+                <strong>${p.productName}</strong><br>
+                Category: ${p.category.name || p.category}<br>
+                ₹${p.sellingPrice} <del>₹${p.mrp}</del><br>
+                Quantity: ${p.qty}
               </div>
               <div class="product-actions">
-                <button onclick="editProduct('${p._id}')">Edit</button>
+                <button class="edit" onclick="editProduct('${p._id}')">Edit</button>
                 <button class="delete" onclick="deleteProduct('${p._id}')">Delete</button>
               </div>
             </div>
@@ -115,16 +174,14 @@
         html += '</div>';
         content.innerHTML = html;
       } catch (err) {
-        content.innerHTML = "<p>Error loading product list.</p>";
+        content.innerHTML = "<p>Error loading products. Please try again later.</p>";
       }
     }
 
-    // Redirect to edit-product page
     function editProduct(id) {
       window.location.href = `edit-product.html?id=${id}`;
     }
 
-    // Delete product
     async function deleteProduct(id) {
       if (!confirm("Are you sure you want to delete this product?")) return;
       try {
@@ -138,12 +195,12 @@
           alert("Failed to delete product.");
         }
       } catch {
-        alert("Error deleting product.");
+        alert("Server error.");
       }
     }
 
-    // Load product list on page load
     window.onload = showProductList;
   </script>
+
 </body>
 </html>
