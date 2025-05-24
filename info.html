@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Drifting Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     body {
       margin: 0;
@@ -11,7 +12,9 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #fff;
       color: #0f172a;
-      line-height: 1.6;
+      
+     
+    
     }
 
     .intro-section {
@@ -163,10 +166,217 @@
         font-weight: bold;
       }
 
+      /*navbar*/
+
+
+nav {
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    
+    background-color: rgb(4, 4, 4);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #f39c12;
+}
+.menu {
+    display: flex;
+    gap: 35px;
+    font-family: monospace;
+    
+    margin-right: 30px;
+   
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+}
+.menu a:hover {
+    text-decoration: underline;
+}
+ /*footer*/
+#goTopBtn {
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background-color: #333;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: bottom 0.3s ease-in-out;
+  }
+
+  #goTopBtn.show {
+    bottom: 40px;
+  }
+
+  #goTopBtn:hover {
+    background-color: #555;
+  }
+  /* Footer Styles */
+/* Footer Styles */
+z
+
+  body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer {
+  background-color: #111;
+  color: #ccc;
+  width: 100%;
+  padding: 60px 20px 30px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Kasho Logo Block */
+.footer-logo-block {
+  flex: 1 1 250px;
+  max-width: 250px;
+}
+
+.footer-logo {
+  font-size: 48px;
+  font-weight: bold;
+  color: #d3623f;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+/* Other Sections */
+.footer-content-sections {
+  flex: 3 1 700px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1 1 200px;
+}
+
+.footer-section h3 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #fff;
+}
+
+.social-icons {
+  margin-top: 15px;
+}
+
+.social-icons a {
+  color: #ccc;
+  margin-right: 15px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #777;
+  margin-top: 30px;
+  font-size: 14px;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-content-sections {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-logo {
+    text-align: center;
+  }
+
+  .footer-logo-block {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+
 
   </style>
 </head>
 <body>
+   <nav>
+        <div class="logo"><i class="fa-solid fa-otter"> Kasho</i></div>
+        <p style="font-style: oblique;font-size: 22px; color: aliceblue;">....here we go to driffffttttttt......</p>
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="products-listing.html">Store</a>
+            <a href="">Event</a>
+            <a href="info.html">info</a>
+           
+        </div>
+       
+    </nav>
+    <br><br><br><br><br>
 
   <!-- Intro Header -->
   <div class="intro-section">
@@ -286,5 +496,72 @@ For this particular purpose, the so-called judges are used when drifting. You wi
      
     </div>
   </section>
+   
+   <!-- Footer Section -->
+ 
+  <footer class="footer">
+  <div class="footer-container">
+    
+    <!-- Kasho Logo & Motto -->
+    <div class="footer-logo-block">
+      <h2 class="footer-logo">Kasho</h2>
+      <p class="footer-text">
+        Driven by Detail. Defined by Kasho.<br>
+        Engineered for Enthusiasts.<br>
+        Not Just Models — Icons in Miniature.
+      </p>
+    </div>
+
+    <!-- Other Footer Content -->
+    <div class="footer-content-sections">
+
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products-listing.html">Shop</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="info.html">Info</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-section">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="index.html">FAQ</a></li>
+          <li><a href="index.html">Privacy Policy</a></li>
+          <li><a href="index.html">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter / Login -->
+      <div class="footer-section">
+        <h3>Stay Connected</h3>
+        <ul>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="adminlogin.html">Admin</a></li>
+        </ul>
+
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Line -->
+  <div class="footer-bottom">
+    &copy; 2025 Kasho. All rights reserved.
+  </div>
+</footer>
+
+
+<button id="goTopBtn">⬆Go to Top</button>
+<script src="script.js"></script>
 </body>
 </html>
