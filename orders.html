@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .orders-container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .order {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .order-id {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+    .order-date {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .order-items {
+      margin-left: 20px;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .item-info {
+      flex: 1;
+    }
+    .item-title {
+      font-weight: 600;
+    }
+    .item-qty, .item-price {
+      font-size: 14px;
+      color: #555;
+    }
+    .no-orders {
+      text-align: center;
+      padding: 40px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>📦 Your Orders</h1>
+  <div class="orders-container" id="ordersContainer">
+    <!-- Orders will render here -->
+  </div>
+
+  <script>
+    async function fetchOrders() {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("You need to be logged in to view your orders.");
+        window.location.href = "/login.html";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:5000/api/orders", {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch orders");
+        }
+
+        const data = await res.json();
+        renderOrders(data.orders);
+      } catch (error) {
+        console.error(error);
+        alert("❌ " + error.message);
+      }
+    }
+
+    function renderOrders(orders) {
+      const container = document.getElementById("ordersContainer");
+
+      if (orders.length === 0) {
+        container.innerHTML = `<div class="no-orders">You have no past orders.</div>`;
+        return;
+      }
+
+      orders.forEach(order => {
+        const orderDiv = document.createElement("div");
+        orderDiv.className = "order";
+        const date = new Date(order.createdAt).toLocaleString();
+
+        orderDiv.innerHTML = `
+          <div class="order-id">Order ID: ${order._id}</div>
+          <div class="order-date">Placed on: ${date}</div>
+          <div class="order-items">
+            ${order.items.map(item => `
+              <div class="item">
+                <img src="${item.productId.imageUrl}" alt="${item.productId.productName}" onerror="this.src='https://via.placeholder.com/60'"/>
+                <div class="item-info">
+                  <div class="item-title">${item.productId.productName}</div>
+                  <div class="item-price">Price: ₹${item.productId.sellingPrice }</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+        container.appendChild(orderDiv);
+      });
+    }
+
+    fetchOrders();
+  </script>
+</body>
+</html>

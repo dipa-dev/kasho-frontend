@@ -5,149 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #f9f9f9;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
+    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { margin: 0; padding: 20px; background: #f9f9f9; }
+    h1 { margin-bottom: 20px; }
 
     .cart-container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
+      max-width: 800px; margin: auto; background: white;
+      padding: 20px; border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
     .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid #eee;
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 16px; border-bottom: 1px solid #eee;
       padding-bottom: 12px;
     }
 
     .cart-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
+      width: 80px; height: 80px; object-fit: cover;
       border-radius: 8px;
     }
 
-    .item-info {
-      flex: 1;
-    }
-
-    .item-title {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .item-price {
-      font-size: 14px;
-      color: #555;
-      margin-top: 4px;
-    }
+    .item-info { flex: 1; }
+    .item-title { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+    .item-price { font-size: 14px; color: #555; margin-top: 4px; }
 
     .remove-btn {
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      height: fit-content;
+      background-color: #dc3545; color: white;
+      border: none; padding: 6px 10px; border-radius: 6px;
+      cursor: pointer; font-size: 12px; height: fit-content;
     }
-
-    .remove-btn:hover {
-      background-color: #c82333;
-    }
+    .remove-btn:hover { background-color: #c82333; }
 
     .total {
-      text-align: right;
-      font-size: 18px;
-      font-weight: 600;
-      margin-top: 20px;
+      text-align: right; font-size: 18px;
+      font-weight: 600; margin-top: 20px;
     }
 
     .checkout-btn {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-      float: right;
+      background-color: #28a745; color: white;
+      border: none; padding: 10px 20px;
+      border-radius: 6px; cursor: pointer;
+      font-size: 16px; margin-top: 10px; float: right;
     }
-
-    .checkout-btn:hover {
-      background-color: #218838;
-    }
+    .checkout-btn:hover { background-color: #218838; }
 
     .empty-msg {
-      text-align: center;
-      color: #777;
-      font-size: 16px;
-      padding: 40px 0;
+      text-align: center; color: #777;
+      font-size: 16px; padding: 40px 0;
     }
 
     .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #007bff;
-      text-decoration: none;
+      display: inline-block; margin-bottom: 20px;
+      color: #007bff; text-decoration: none;
       font-size: 14px;
     }
+    .back-link:hover { text-decoration: underline; }
 
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Quantity buttons styling */
     .qty-btn {
-      padding: 4px 8px;
-      margin: 0 6px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
+      padding: 4px 8px; margin: 0 6px;
+      background-color: #007bff; color: white;
+      border: none; border-radius: 4px;
+      cursor: pointer; font-weight: bold;
       font-size: 14px;
     }
-
-    .qty-btn:hover {
-      background-color: #0056b3;
-    }
+    .qty-btn:hover { background-color: #0056b3; }
 
     .qty-count {
-      font-weight: 600;
-      font-size: 14px;
-      vertical-align: middle;
-      display: inline-block;
-      min-width: 20px;
-      text-align: center;
+      font-weight: 600; font-size: 14px;
+      vertical-align: middle; display: inline-block;
+      min-width: 20px; text-align: center;
     }
   </style>
 </head>
 <body>
-
   <div class="cart-container">
     <a href="products-listing.html" class="back-link">← Continue Shopping</a>
     <h1>🛒 Your Cart</h1>
@@ -175,8 +107,8 @@
       let total = 0;
 
       cart.forEach((item, index) => {
-        if (!item.qty) item.qty = 1;
-        const itemTotal = item.sellingPrice * item.qty;
+        if (!item.quantity) item.quantity = 1;
+        const itemTotal = item.sellingPrice * item.quantity;
         total += itemTotal;
 
         const div = document.createElement("div");
@@ -189,7 +121,7 @@
             <div>
               Qty: 
               <button class="qty-btn minus" data-index="${index}">−</button>
-              <span class="qty-count">${item.qty}</span>
+              <span class="qty-count">${item.quantity}</span>
               <button class="qty-btn plus" data-index="${index}">+</button>
             </div>
             <div class="item-price">Subtotal: ₹${itemTotal}</div>
@@ -202,18 +134,13 @@
       cartTotalEl.textContent = `Total: ₹${total}`;
       checkoutBtn.style.display = "inline-block";
 
-      // Attach event listeners for quantity buttons and remove buttons
       document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const index = btn.dataset.index;
-          removeItem(index);
-        });
+        btn.addEventListener("click", () => removeItem(btn.dataset.index));
       });
 
       document.querySelectorAll(".qty-btn.plus").forEach(btn => {
         btn.addEventListener("click", () => {
-          const index = btn.dataset.index;
-          cart[index].qty += 1;
+          cart[btn.dataset.index].quantity += 1;
           updateCart();
         });
       });
@@ -221,8 +148,8 @@
       document.querySelectorAll(".qty-btn.minus").forEach(btn => {
         btn.addEventListener("click", () => {
           const index = btn.dataset.index;
-          if (cart[index].qty > 1) {
-            cart[index].qty -= 1;
+          if (cart[index].quantity > 1) {
+            cart[index].quantity -= 1;
             updateCart();
           }
         });
@@ -239,13 +166,44 @@
       renderCart();
     }
 
-    checkoutBtn.addEventListener("click", () => {
+    checkoutBtn.addEventListener("click", async () => {
       if (cart.length === 0) return;
 
-      alert("Checkout successful! Thank you for your purchase.");
-      localStorage.removeItem("cart");
-      cart = [];
-      renderCart();
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("You must be logged in to checkout.");
+        window.location.href = "/login.html";
+        return;
+      }
+
+      try {
+        const formattedItems = cart.map(item => ({
+          productId: item.productId,
+          quantity: item.quantity
+        }));
+
+        const response = await fetch("http://localhost:5000/api/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token
+          },
+          body: JSON.stringify({ items: formattedItems })
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || "Checkout failed.");
+        }
+
+        const result = await response.json();
+        alert("✅ Order placed successfully!");
+        localStorage.removeItem("cart");
+        cart = [];
+        renderCart();
+      } catch (error) {
+        alert("❌ " + error.message);
+      }
     });
 
     renderCart();

@@ -158,37 +158,43 @@
   </div>
 
   <script>
-
-    document.getElementById("submitForm").addEventListener("submit", async (e) =>{
-
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    let message = document.getElementById("message");
-
+    document.getElementById("submitForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      // console.log(firstName, lastName, email, password, "testing");
+  
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let message = document.getElementById("message");
+  
       try {
         let data = await fetch("http://localhost:5000/api/auth/signin", {
-          method: "Post",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, password }),
-        })
+        });
+  
         let res = await data.json();
-        if(res.status == 400){
+  
+        if (res.status === 400) {
           message.innerText = res.message;
         }
-        console.log(res, "test");
-        if(res.status == 200){
+  
+        if (res.status === 200 && res.token) {
+          // ✅ Save token in localStorage
+          localStorage.setItem("token", res.token);
+  
+          // Optionally save user info
+          localStorage.setItem("user", JSON.stringify(res.user || {}));
+  
+          // ✅ Redirect to homepage or cart
           location.href = "http://localhost:5500/index.html";
         }
       } catch (error) {
         console.error("Error while submitting data", error);
       }
-    })
-
+    });
   </script>
+  
 </body>
 </html>

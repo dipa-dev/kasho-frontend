@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formula 1 Events 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #e10600;
+      text-shadow: 1px 1px 2px #999;
+    }
+    .event {
+      background: white;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .event:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+    .event h2 {
+      margin: 0 0 12px 0;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .event p {
+      margin: 6px 0;
+      color: #555;
+      line-height: 1.4;
+    }
+    .link {
+      color: #e10600;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏁 Formula 1 - Upcoming 2025 Season Events</h1>
+  <div id="events"></div>
+
+  <script>
+    const f12025Events = [
+      {
+        raceName: "Australian Grand Prix",
+        date: "2025-03-16",
+        round: "1",
+        url: "https://en.wikipedia.org/wiki/2025_Australian_Grand_Prix",
+        Circuit: {
+          circuitName: "Albert Park Grand Prix Circuit",
+          url: "https://en.wikipedia.org/wiki/Albert_Park_Circuit",
+          Location: {
+            locality: "Melbourne",
+            country: "Australia"
+          }
+        }
+      },
+      {
+        raceName: "Bahrain Grand Prix",
+        date: "2025-03-30",
+        round: "2",
+        url: "https://en.wikipedia.org/wiki/2025_Bahrain_Grand_Prix",
+        Circuit: {
+          circuitName: "Bahrain International Circuit",
+          url: "https://en.wikipedia.org/wiki/Bahrain_International_Circuit",
+          Location: {
+            locality: "Sakhir",
+            country: "Bahrain"
+          }
+        }
+      },
+      {
+        raceName: "Chinese Grand Prix",
+        date: "2025-04-13",
+        round: "3",
+        url: "https://en.wikipedia.org/wiki/2025_Chinese_Grand_Prix",
+        Circuit: {
+          circuitName: "Shanghai International Circuit",
+          url: "https://en.wikipedia.org/wiki/Shanghai_International_Circuit",
+          Location: {
+            locality: "Shanghai",
+            country: "China"
+          }
+        }
+      },
+      {
+        raceName: "Miami Grand Prix",
+        date: "2025-05-04",
+        round: "4",
+        url: "https://en.wikipedia.org/wiki/2025_Miami_Grand_Prix",
+        Circuit: {
+          circuitName: "Miami International Autodrome",
+          url: "https://en.wikipedia.org/wiki/Miami_International_Autodrome",
+          Location: {
+            locality: "Miami",
+            country: "United States"
+          }
+        }
+      },
+      {
+        raceName: "Monaco Grand Prix",
+        date: "2025-05-25",
+        round: "5",
+        url: "https://en.wikipedia.org/wiki/2025_Monaco_Grand_Prix",
+        Circuit: {
+          circuitName: "Circuit de Monaco",
+          url: "https://en.wikipedia.org/wiki/Circuit_de_Monaco",
+          Location: {
+            locality: "Monaco",
+            country: "Monaco"
+          }
+        }
+      },
+      {
+        raceName: "Spanish Grand Prix",
+        date: "2025-06-08",
+        round: "6",
+        url: "https://en.wikipedia.org/wiki/2025_Spanish_Grand_Prix",
+        Circuit: {
+          circuitName: "Circuit de Barcelona-Catalunya",
+          url: "https://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya",
+          Location: {
+            locality: "Montmeló",
+            country: "Spain"
+          }
+        }
+      },
+      {
+        raceName: "Canadian Grand Prix",
+        date: "2025-06-22",
+        round: "7",
+        url: "https://en.wikipedia.org/wiki/2025_Canadian_Grand_Prix",
+        Circuit: {
+          circuitName: "Circuit Gilles Villeneuve",
+          url: "https://en.wikipedia.org/wiki/Circuit_Gilles_Villeneuve",
+          Location: {
+            locality: "Montreal",
+            country: "Canada"
+          }
+        }
+      },
+      {
+        raceName: "British Grand Prix",
+        date: "2025-07-06",
+        round: "8",
+        url: "https://en.wikipedia.org/wiki/2025_British_Grand_Prix",
+        Circuit: {
+          circuitName: "Silverstone Circuit",
+          url: "https://en.wikipedia.org/wiki/Silverstone_Circuit",
+          Location: {
+            locality: "Silverstone",
+            country: "United Kingdom"
+          }
+        }
+      },
+      {
+        raceName: "Hungarian Grand Prix",
+        date: "2025-07-27",
+        round: "9",
+        url: "https://en.wikipedia.org/wiki/2025_Hungarian_Grand_Prix",
+        Circuit: {
+          circuitName: "Hungaroring",
+          url: "https://en.wikipedia.org/wiki/Hungaroring",
+          Location: {
+            locality: "Mogyoród",
+            country: "Hungary"
+          }
+        }
+      },
+      {
+        raceName: "Belgian Grand Prix",
+        date: "2025-08-31",
+        round: "10",
+        url: "https://en.wikipedia.org/wiki/2025_Belgian_Grand_Prix",
+        Circuit: {
+          circuitName: "Circuit de Spa-Francorchamps",
+          url: "https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps",
+          Location: {
+            locality: "Stavelot",
+            country: "Belgium"
+          }
+        }
+      },
+      {
+        raceName: "Italian Grand Prix",
+        date: "2025-09-07",
+        round: "11",
+        url: "https://en.wikipedia.org/wiki/2025_Italian_Grand_Prix",
+        Circuit: {
+          circuitName: "Monza Circuit",
+          url: "https://en.wikipedia.org/wiki/Autodromo_Nazionale_Monza",
+          Location: {
+            locality: "Monza",
+            country: "Italy"
+          }
+        }
+      },
+      {
+        raceName: "Singapore Grand Prix",
+        date: "2025-09-21",
+        round: "12",
+        url: "https://en.wikipedia.org/wiki/2025_Singapore_Grand_Prix",
+        Circuit: {
+          circuitName: "Marina Bay Street Circuit",
+          url: "https://en.wikipedia.org/wiki/Marina_Bay_Street_Circuit",
+          Location: {
+            locality: "Singapore",
+            country: "Singapore"
+          }
+        }
+      },
+      {
+        raceName: "Japanese Grand Prix",
+        date: "2025-10-05",
+        round: "13",
+        url: "https://en.wikipedia.org/wiki/2025_Japanese_Grand_Prix",
+        Circuit: {
+          circuitName: "Suzuka International Racing Course",
+          url: "https://en.wikipedia.org/wiki/Suzuka_Circuit",
+          Location: {
+            locality: "Suzuka",
+            country: "Japan"
+          }
+        }
+      },
+      {
+        raceName: "United States Grand Prix",
+        date: "2025-10-19",
+        round: "14",
+        url: "https://en.wikipedia.org/wiki/2025_United_States_Grand_Prix",
+        Circuit: {
+          circuitName: "Circuit of the Americas",
+          url: "https://en.wikipedia.org/wiki/Circuit_of_the_Americas",
+          Location: {
+            locality: "Austin",
+            country: "United States"
+          }
+        }
+      },
+      {
+        raceName: "Mexico City Grand Prix",
+        date: "2025-10-26",
+        round: "15",
+        url: "https://en.wikipedia.org/wiki/2025_Mexican_Grand_Prix",
+        Circuit: {
+          circuitName: "Autódromo Hermanos Rodríguez",
+          url: "https://en.wikipedia.org/wiki/Autódromo_Hermanos_Rodríguez",
+          Location: {
+            locality: "Mexico City",
+            country: "Mexico"
+          }
+        }
+      },
+      {
+        raceName: "Brazilian Grand Prix",
+        date: "2025-11-02",
+        round: "16",
+        url: "https://en.wikipedia.org/wiki/2025_Brazilian_Grand_Prix",
+        Circuit: {
+          circuitName: "Interlagos Circuit",
+          url: "https://en.wikipedia.org/wiki/Autódromo_José_Carlos_Pace",
+          Location: {
+            locality: "São Paulo",
+            country: "Brazil"
+          }
+        }
+      },
+      {
+        raceName: "Abu Dhabi Grand Prix",
+        date: "2025-11-23",
+        round: "17",
+        url: "https://en.wikipedia.org/wiki/2025_Abu_Dhabi_Grand_Prix",
+        Circuit: {
+          circuitName: "Yas Marina Circuit",
+          url: "https://en.wikipedia.org/wiki/Yas_Marina_Circuit",
+          Location: {
+            locality: "Abu Dhabi",
+            country: "United Arab Emirates"
+          }
+        }
+      }
+    ];
+
+    function renderEvents(events) {
+      const container = document.getElementById('events');
+      container.innerHTML = '';
+
+      events.forEach(event => {
+        const div = document.createElement('div');
+        div.className = 'event';
+        div.innerHTML = `
+          <h2><a href="${event.url}" target="_blank" class="link">${event.raceName}</a></h2>
+          <p><strong>Date:</strong> ${new Date(event.date).toLocaleDateString()}</p>
+          <p><strong>Round:</strong> ${event.round}</p>
+          <p><strong>Circuit:</strong> <a href="${event.Circuit.url}" target="_blank" class="link">${event.Circuit.circuitName}</a>, ${event.Circuit.Location.locality}, ${event.Circuit.Location.country}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    renderEvents(f12025Events);
+  </script>
+</body>
+</html>

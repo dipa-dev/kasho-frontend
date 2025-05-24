@@ -198,6 +198,9 @@
         if(res.code == 400){
           message.innerText = res.message;
         }
+        if(data.ok){
+          window.location.href = '/login.html'
+        }
       } catch (error) {
         console.error("Error while submitting data", error);
       }

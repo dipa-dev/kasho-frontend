@@ -202,6 +202,7 @@
     <h1>🛍️ Product List</h1>
     <div style="display: flex; align-items: center; gap: 20px;">
       <a href="index.html" class="home-link">🏠 Home</a>
+      <a href="orders.html" class="home-link" style="color: green;">📦 My Orders</a>
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search..." />
       </div>
@@ -210,6 +211,7 @@
       </a>
     </div>
   </div>
+  
 
   <div class="container" id="productContainer"></div>
 
@@ -226,15 +228,29 @@
     }
 
     function addToCart(productId) {
-      const product = products.find(p => p._id === productId);
-      if (!product) return;
+  const product = products.find(p => p._id === productId);
+  if (!product) return;
 
-      if (!cart.some(p => p._id === productId)) {
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
-      }
-    }
+  // Check if product is already in the cart
+  const existingItem = cart.find(item => item.productId === productId);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      productId: product._id,      // ✅ matches Mongoose schema
+      productName: product.productName,
+      sellingPrice: product.sellingPrice,
+      imageUrl: product.imageUrl,
+      quantity: 1,                 // ✅ matches Mongoose schema
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+}
+
+
 
     function getDiscount(mrp, sellingPrice) {
       if (!mrp || mrp <= sellingPrice) return null;
@@ -243,48 +259,48 @@
     }
 
     function displayProducts(list) {
-      container.innerHTML = "";
-      list.forEach(product => {
-        const discount = getDiscount(product.mrp, product.sellingPrice);
-        const inStock = product.inStock;
-        const card = document.createElement("div");
-        card.className = "card";
+  container.innerHTML = "";
+  list.forEach(product => {
+    const discount = getDiscount(product.mrp, product.sellingPrice);
+    const inStock = product.qty > 0;
+    const card = document.createElement("div");
+    card.className = "card";
 
-        const originalDescription = product.description || "No description provided.";
-        const description = originalDescription.length > 90 
-          ? originalDescription.slice(0, 90) + "..."
-          : originalDescription;
+    const originalDescription = product.description || "No description provided.";
+    const description = originalDescription.length > 90 
+      ? originalDescription.slice(0, 90) + "..."
+      : originalDescription;
 
-        card.innerHTML = `
-          <a href="product-details.html?id=${product._id}" class="card-link">
-            <img src="${product.imageUrl}" alt="${product.productName}" onerror="this.src='https://via.placeholder.com/300x180?text=No+Image'" />
-            <div class="card-body">
-              <div class="product-title">${product.productName}</div>
-              <div class="product-category">${product.category?.name || "Uncategorized"}</div>
-              <div class="product-description">${description}</div>
-              <div class="price">
-                ₹${product.sellingPrice}
-                ${product.mrp && product.mrp > product.sellingPrice ? `<span class="old-price">₹${product.mrp}</span>` : ""}
-                ${discount ? `<span class="discount">${discount}% OFF</span>` : ""}
-              </div>
-              <div class="stock ${!inStock ? "out" : ""}">${inStock ? "In Stock" : "Out of Stock"}</div>
-              ${inStock ? `<button class="add-to-cart-btn" data-id="${product._id}">Add to Cart</button>` : ""}
-            </div>
-          </a>
-        `;
-        container.appendChild(card);
+    card.innerHTML = `
+      <a href="product-details.html?id=${product._id}" class="card-link">
+        <img src="${product.imageUrl}" alt="${product.productName}" onerror="this.src='https://via.placeholder.com/300x180?text=No+Image'" />
+        <div class="card-body">
+          <div class="product-title">${product.productName}</div>
+          <div class="product-category">${product.category?.name || "Uncategorized"}</div>
+          <div class="product-description">${description}</div>
+          <div class="price">
+            ₹${product.sellingPrice}
+            ${product.mrp && product.mrp > product.sellingPrice ? `<span class="old-price">₹${product.mrp}</span>` : ""}
+            ${discount ? `<span class="discount">${discount}% OFF</span>` : ""}
+          </div>
+          <div class="stock ${!inStock ? "out" : ""}">${inStock ? "In Stock" : "Out of Stock"}</div>
+          ${inStock ? `<button class="add-to-cart-btn" data-id="${product._id}">Add to Cart</button>` : ""}
+        </div>
+      </a>
+    `;
+    container.appendChild(card);
 
-        // Add event listener to the button (outside the <a>)
-        const btn = card.querySelector(".add-to-cart-btn");
-        if (btn) {
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation(); // prevent parent link
-            e.preventDefault(); // prevent navigation
-            addToCart(btn.dataset.id);
-          });
-        }
+    const btn = card.querySelector(".add-to-cart-btn");
+    if (btn) {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        addToCart(btn.dataset.id);
       });
     }
+  });
+}
+
 
     searchInput.addEventListener("input", () => {
       const searchTerm = searchInput.value.toLowerCase();
