@@ -4,7 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Formula 1 Events 2025</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
+    /*navbar*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(10, 10, 10);
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-top: 60px; /* Prevent content from being hidden under fixed navbar */
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: rgb(4, 4, 4);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #f39c12;
+}
+.menu {
+    display: flex;
+    gap: 35px;
+    font-family: monospace;
+    /* margin-right: 190px; */
+   
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.menu a:hover {
+    text-decoration: underline;
+}
+
+
+
+
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -46,10 +97,50 @@
     }
     .link:hover {
       text-decoration: underline;
-    }
+    } 
+    
+    
+    /*footer*/
+#goTopBtn {
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background-color: #333;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: bottom 0.3s ease-in-out;
+  }
+
+  #goTopBtn.show {
+    bottom: 40px;
+  }
+
+  #goTopBtn:hover {
+    background-color: #555;
+  }
   </style>
 </head>
 <body>
+   <nav>
+        <div class="logo"><i class="fa-solid fa-otter"> Kasho</i></div>
+        <p style="font-style: oblique;font-size: 22px;">....here we go to driffffttttttt......</p>
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="products-listing.html">Store</a>
+            <a href="events.html">Event</a>
+            <a href="info.html">Info</a>
+           
+           
+        </div>
+       
+    </nav><br><br><br><br>
 
   <h1>🏁 Formula 1 - Upcoming 2025 Season Events</h1>
   <div id="events"></div>
@@ -314,6 +405,7 @@
     }
 
     renderEvents(f12025Events);
-  </script>
+  </script><button id="goTopBtn">⬆Go to Top</button>
+<script src="script.js"></script>
 </body>
 </html>

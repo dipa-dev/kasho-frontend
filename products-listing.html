@@ -10,210 +10,254 @@
     * {
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
-    }
-    body {
+      list-style: none;
       margin: 0;
-      padding: 20px;
-      background: #f9f9f9;
+      padding: 0;
     }
-    h1 {
-      margin-bottom: 10px;
+
+    body {
+      background-color: #fff;
+      color: #333;
     }
 
     .header {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      padding: 16px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #eee;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #007bff;
+    }
+
+    .nav-btn {
+      background-color: #f5f5f5;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-btn:hover {
+      background-color: #111;
+      color: white;
+    }
+
     .search-bar input {
-      padding: 10px 15px;
-      width: 220px;
-      border-radius: 25px;
+      padding: 8px 14px;
+      border-radius: 30px;
       border: 1px solid #ccc;
+      width: 180px;
+      font-size: 14px;
       outline: none;
     }
 
-    .container {
+    .search-bar input:focus {
+      border-color: #555;
+    }
+
+    .cart-link {
+      position: relative;
+      background-color: #111;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+
+    .cart-link:hover {
+      background-color: #333;
+    }
+
+    .cart-count-badge {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: #e53935;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1300px;
+      margin: 40px auto;
+      padding: 0 40px;
+    }
+
+    #productContainer {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, max-content));
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 40px 30px;
     }
 
     .card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: 0.3s;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
 
     .card img {
       width: 100%;
-      height: 180px;
+      height: 230px;
       object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover img {
-      transform: scale(1.05);
+      background-color: #fafafa;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
     }
 
     .card-body {
-      padding: 16px;
+      padding: 20px;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      flex: 1;
     }
 
     .product-title {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 16px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .product-title:hover {
+      color: #007bff;
     }
 
     .product-category {
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 8px;
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 12px;
     }
 
     .product-description {
       font-size: 13px;
-      color: #444;
-      margin-bottom: 10px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      color: #555;
+      margin-bottom: 14px;
+      line-height: 1.4em;
+      height: 38px;
       overflow: hidden;
       text-overflow: ellipsis;
-      height: 40px;
     }
 
     .price {
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
     }
 
     .old-price {
       text-decoration: line-through;
-      color: #888;
+      color: #999;
       font-size: 13px;
       margin-left: 10px;
     }
 
     .discount {
-      background-color: #ff4d4d;
+      background-color: #e53935;
       color: white;
-      font-size: 12px;
+      font-size: 11px;
       padding: 2px 6px;
       border-radius: 4px;
       margin-left: 10px;
     }
 
     .stock {
-      font-size: 12px;
       margin-top: auto;
-      color: white;
-      background-color: #28a745;
+      font-size: 12px;
+      font-weight: 500;
       padding: 5px 10px;
-      border-radius: 10px;
+      border-radius: 20px;
       width: fit-content;
-      align-self: flex-start;
+      color: white;
+      background-color: #43a047;
     }
 
     .stock.out {
-      background-color: #dc3545;
-    }
-
-    .card-link {
-      text-decoration: none;
-      color: inherit;
+      background-color: #d32f2f;
     }
 
     .add-to-cart-btn {
-      margin-top: 10px;
-      padding: 8px 12px;
-      background-color: #007bff;
+      margin-top: 16px;
+      padding: 10px 16px;
+      background-color: #111;
       color: white;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      border-radius: 8px;
       font-size: 13px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .add-to-cart-btn:hover {
-      background-color: #0056b3;
+      background-color: #444;
     }
-
-    .cart-link {
-      text-decoration: none;
-      font-size: 16px;
-      padding: 8px 14px;
-      background-color: #007bff;
-      color: white;
-      border-radius: 20px;
-      transition: background-color 0.3s ease;
-      position: relative;
-    }
-
-    .cart-link:hover {
-      background-color: #0056b3;
-    }
-
-    .cart-count-badge {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .home-link {
-      text-decoration: none;
-      font-size: 16px;
-      padding: 8px 14px;
-      /* background-color: #6c757d; */
-      color: blue;
-      border-radius: 20px;
-      transition: background-color 0.3s ease;
-      margin-right: 20px;
-    }
-
-    /* .home-link:hover {
-      background-color: #5a6268;
-    } */
   </style>
 </head>
 <body>
-
-  <div class="header">
-    <h1>🛍️ Product List</h1>
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <a href="index.html" class="home-link">🏠 Home</a>
-      <a href="orders.html" class="home-link" style="color: green;">📦 My Orders</a>
+  <header class="header">
+    <div class="logo">
+      <h1>🛍️ Product List</h1>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">🏠 Home</a>
+      <a href="orders.html">📦 Orders</a>
+      <a href="login.html" class="nav-btn">Login</a>
+      <a href="register.html" class="nav-btn">Register</a>
+      
       <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search..." />
+        <input type="text" id="searchInput" placeholder="Search products..." />
       </div>
       <a href="cart.html" class="cart-link">
         🛒 Cart <span id="cartCount" class="cart-count-badge">0</span>
       </a>
     </div>
-  </div>
-  
+  </header>
 
-  <div class="container" id="productContainer"></div>
+  <main>
+    <div id="productContainer"></div>
+  </main>
 
   <script>
     let products = [];
@@ -228,29 +272,25 @@
     }
 
     function addToCart(productId) {
-  const product = products.find(p => p._id === productId);
-  if (!product) return;
+      const product = products.find(p => p._id === productId);
+      if (!product) return;
 
-  // Check if product is already in the cart
-  const existingItem = cart.find(item => item.productId === productId);
+      const existingItem = cart.find(item => item.productId === productId);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          productId: product._id,
+          productName: product.productName,
+          sellingPrice: product.sellingPrice,
+          imageUrl: product.imageUrl,
+          quantity: 1,
+        });
+      }
 
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({
-      productId: product._id,      // ✅ matches Mongoose schema
-      productName: product.productName,
-      sellingPrice: product.sellingPrice,
-      imageUrl: product.imageUrl,
-      quantity: 1,                 // ✅ matches Mongoose schema
-    });
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
-}
-
-
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+    }
 
     function getDiscount(mrp, sellingPrice) {
       if (!mrp || mrp <= sellingPrice) return null;
@@ -259,48 +299,51 @@
     }
 
     function displayProducts(list) {
-  container.innerHTML = "";
-  list.forEach(product => {
-    const discount = getDiscount(product.mrp, product.sellingPrice);
-    const inStock = product.qty > 0;
-    const card = document.createElement("div");
-    card.className = "card";
+      container.innerHTML = "";
+      list.forEach(product => {
+        const discount = getDiscount(product.mrp, product.sellingPrice);
+        const inStock = product.qty > 0;
+        const card = document.createElement("div");
+        card.className = "card";
 
-    const originalDescription = product.description || "No description provided.";
-    const description = originalDescription.length > 90 
-      ? originalDescription.slice(0, 90) + "..."
-      : originalDescription;
+        const description = (product.description || "No description provided.").slice(0, 90) + "...";
 
-    card.innerHTML = `
-      <a href="product-details.html?id=${product._id}" class="card-link">
-        <img src="${product.imageUrl}" alt="${product.productName}" onerror="this.src='https://via.placeholder.com/300x180?text=No+Image'" />
-        <div class="card-body">
-          <div class="product-title">${product.productName}</div>
-          <div class="product-category">${product.category?.name || "Uncategorized"}</div>
-          <div class="product-description">${description}</div>
-          <div class="price">
-            ₹${product.sellingPrice}
-            ${product.mrp && product.mrp > product.sellingPrice ? `<span class="old-price">₹${product.mrp}</span>` : ""}
-            ${discount ? `<span class="discount">${discount}% OFF</span>` : ""}
+        card.innerHTML = `
+          <img src="${product.imageUrl}" alt="${product.productName}" data-id="${product._id}" ${inStock ? 'class="clickable-image"' : ''} onerror="this.src='https://via.placeholder.com/300x180?text=No+Image'" />
+          <div class="card-body">
+            <div class="product-title">${product.productName}</div>
+            <div class="product-category">${product.category?.name || "Uncategorized"}</div>
+            <div class="product-description">${description}</div>
+            <div class="price">
+              ₹${product.sellingPrice}
+              ${product.mrp && product.mrp > product.sellingPrice ? `<span class="old-price">₹${product.mrp}</span>` : ""}
+              ${discount ? `<span class="discount">${discount}% OFF</span>` : ""}
+            </div>
+            <div class="stock ${!inStock ? "out" : ""}">${inStock ? "In Stock" : "Out of Stock"}</div>
+            ${inStock ? `<button class="add-to-cart-btn" data-id="${product._id}">Add to Cart</button>` : ""}
           </div>
-          <div class="stock ${!inStock ? "out" : ""}">${inStock ? "In Stock" : "Out of Stock"}</div>
-          ${inStock ? `<button class="add-to-cart-btn" data-id="${product._id}">Add to Cart</button>` : ""}
-        </div>
-      </a>
-    `;
-    container.appendChild(card);
+        `;
 
-    const btn = card.querySelector(".add-to-cart-btn");
-    if (btn) {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        addToCart(btn.dataset.id);
+        container.appendChild(card);
+
+        const btn = card.querySelector(".add-to-cart-btn");
+        const img = card.querySelector(".clickable-image");
+
+        if (btn) {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            addToCart(btn.dataset.id);
+          });
+        }
+
+        if (img) {
+          img.addEventListener("click", () => {
+            addToCart(img.dataset.id);
+          });
+        }
       });
     }
-  });
-}
-
 
     searchInput.addEventListener("input", () => {
       const searchTerm = searchInput.value.toLowerCase();
@@ -317,7 +360,7 @@
         products = data.products || [];
         displayProducts(products);
       } catch (error) {
-        console.error("Error while fetching data", error);
+        console.error("Error fetching products:", error);
       }
     };
 
