@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+                  url('image_hover/dorge background.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-container {
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      color: white;
+      animation: slideIn 0.8s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contact-form h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .contact-form p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    .contact-form label {
+      display: block;
+      text-align: left;
+      font-size: 13px;
+      color: #eee;
+      margin: 10px 0 5px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      outline: none;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #ccc;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #6c9eff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #527de0;
+    }
+
+    .confirmation {
+      margin-top: 15px;
+      font-size: 14px;
+      color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form class="contact-form" id="contactForm">
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you!</p>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your full name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Your email address" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" rows="5" placeholder="Your message..." required></textarea>
+
+      <button type="submit" class="submit-btn">Send Message</button>
+      <div class="confirmation" id="confirmationMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const confirmation = document.getElementById("confirmationMsg");
+
+      try {
+        // You can replace this with your backend API endpoint
+        const response = await fetch("https://example.com/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, message })
+        });
+
+        if (response.ok) {
+          confirmation.textContent = "Message sent successfully!";
+          document.getElementById("contactForm").reset();
+        } else {
+          confirmation.textContent = "Failed to send message. Please try again.";
+          confirmation.style.color = "red";
+        }
+      } catch (error) {
+        confirmation.textContent = "Error occurred. Please try later.";
+        confirmation.style.color = "red";
+        console.error("Contact form error:", error);
+      }
+    });
+  </script>
+</body>
+</html>
