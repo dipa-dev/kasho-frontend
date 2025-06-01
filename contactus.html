@@ -135,19 +135,19 @@
       const email = document.getElementById("email").value.trim();
       const message = document.getElementById("message").value.trim();
       const confirmation = document.getElementById("confirmationMsg");
-
+  
       try {
-        // You can replace this with your backend API endpoint
-        const response = await fetch("https://example.com/api/contact", {
+        const response = await fetch("http://localhost:5000/api/contact", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ name, email, message })
         });
-
+  
         if (response.ok) {
           confirmation.textContent = "Message sent successfully!";
+          confirmation.style.color = "lightgreen";
           document.getElementById("contactForm").reset();
         } else {
           confirmation.textContent = "Failed to send message. Please try again.";
@@ -159,6 +159,6 @@
         console.error("Contact form error:", error);
       }
     });
-  </script>
+  </script>  
 </body>
 </html>

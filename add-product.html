@@ -141,8 +141,8 @@
       </div>
 
       <div class="form-group">
-        <label for="imageUrl">Image URL</label>
-        <input type="text" id="imageUrl" name="imageUrl" />
+        <label for="image">Upload image</label>
+        <input type="file" id="image" name="image" accept="image/*" />
       </div>
 
       <div class="form-group">
@@ -184,43 +184,48 @@
 
     // Handle form submission
     addProductForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+  event.preventDefault();
 
-      const product = {
-        productName: document.getElementById("productName").value.trim(),
-        category: document.getElementById("category").value,
-        sellingPrice: parseFloat(document.getElementById("sellingPrice").value),
-        mrp: parseFloat(document.getElementById("mrp").value),
-        description: document.getElementById("description").value.trim(),
-        imageUrl: document.getElementById("imageUrl").value.trim(),
-        qty: parseInt(document.getElementById("qty").value),
-      };
+  const formData = new FormData();
 
-      try {
-        const res = await fetch("http://localhost:5000/api/products", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(product),
-        });
+  formData.append("productName", document.getElementById("productName").value.trim());
+  formData.append("category", document.getElementById("category").value);
+  console.log(document.getElementById("category").value)
+  formData.append("sellingPrice", parseFloat(document.getElementById("sellingPrice").value));
+  formData.append("mrp", parseFloat(document.getElementById("mrp").value));
+  formData.append("description", document.getElementById("description").value.trim());
+  formData.append("qty", parseInt(document.getElementById("qty").value));
 
-        const result = await res.json();
-        formMessage.style.display = "block";
+  const imageFile = document.getElementById("image").files[0];
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
 
-        if (res.ok) {
-          formMessage.textContent = "✅ Product added successfully!";
-          formMessage.className = "message success";
-          addProductForm.reset();
-        } else {
-          formMessage.textContent = result.message || "Something went wrong.";
-          formMessage.className = "message error";
-        }
-      } catch (error) {
-        console.error("Error adding product", error);
-        formMessage.textContent = "❌ Failed to add product.";
-        formMessage.className = "message error";
-        formMessage.style.display = "block";
-      }
+  try {
+    const res = await fetch("http://localhost:5000/api/products", {
+      method: "POST",
+      body: formData
     });
+
+    const result = await res.json();
+    formMessage.style.display = "block";
+
+    if (res.ok) {
+      formMessage.textContent = "✅ Product added successfully!";
+      formMessage.className = "message success";
+      addProductForm.reset();
+    } else {
+      formMessage.textContent = result.message || "Something went wrong.";
+      formMessage.className = "message error";
+    }
+  } catch (error) {
+    console.error("Error adding product", error);
+    formMessage.textContent = "❌ Failed to add product.";
+    formMessage.className = "message error";
+    formMessage.style.display = "block";
+  }
+});
+
 
     fetchCategories();
   </script>

@@ -99,9 +99,10 @@
       </div>
 
       <div class="form-group">
-        <label for="imageUrl">Image URL</label>
-        <input type="text" id="imageUrl" name="imageUrl" />
+        <label for="imageFile">Upload Image</label>
+        <input type="file" id="imageFile" name="image" accept="image/*" />
       </div>
+      
 
       <div class="form-group">
         <label for="qty">Quantity</label>
@@ -146,7 +147,7 @@
           document.getElementById("sellingPrice").value = p.sellingPrice;
           document.getElementById("mrp").value = p.mrp;
           document.getElementById("description").value = p.description;
-          document.getElementById("imageUrl").value = p.imageUrl;
+          // document.getElementById("imageUrl").value = p.imageUrl;
           document.getElementById("qty").value = p.qty;
           categorySelect.value = p.category._id || p.category;
         } else {
@@ -159,39 +160,40 @@
 
     // Handle form submission
     editForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const updatedProduct = {
-        productName: document.getElementById("productName").value,
-        category: document.getElementById("category").value,
-        sellingPrice: document.getElementById("sellingPrice").value,
-        mrp: document.getElementById("mrp").value,
-        description: document.getElementById("description").value,
-        imageUrl: document.getElementById("imageUrl").value,
-        qty: document.getElementById("qty").value,
-      };
+  event.preventDefault();
 
-      try {
-        const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedProduct),
-        });
+  const formData = new FormData();
 
-        const result = await res.json();
-        if (res.ok) {
-          alert("Product updated successfully!");
-          window.location.href = "admin-dashboard.html"
-        } else {
-          alert(result.message || "Update failed.");
-        }
-      } catch (error) {
-        console.error("Error updating product", error);
-        alert("Failed to update product.");
-      }
+  formData.append("productName", document.getElementById("productName").value);
+  formData.append("category", document.getElementById("category").value);
+  formData.append("sellingPrice", document.getElementById("sellingPrice").value);
+  formData.append("mrp", document.getElementById("mrp").value);
+  formData.append("description", document.getElementById("description").value);
+  formData.append("qty", document.getElementById("qty").value);
+
+  const imageFileInput = document.getElementById("imageFile");
+  if (imageFileInput.files.length > 0) {
+    formData.append("image", imageFileInput.files[0]);
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
+      method: "PUT",
+      body: formData, // Important: do NOT set content-type header, browser will set boundary
     });
 
+    const result = await res.json();
+    if (res.ok) {
+      alert("Product updated successfully!");
+      window.location.href = "admin-dashboard.html";
+    } else {
+      alert(result.message || "Update failed.");
+    }
+  } catch (error) {
+    console.error("Error updating product", error);
+    alert("Failed to update product.");
+  }
+});
     // Load categories & product on page load
     fetchCategories().then(fetchProductDetails);
   </script>

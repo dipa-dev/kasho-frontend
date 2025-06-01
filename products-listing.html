@@ -243,8 +243,9 @@
     <div class="nav-links">
       <a href="index.html">🏠 Home</a>
       <a href="orders.html">📦 Orders</a>
-      <a href="login.html" class="nav-btn">Login</a>
-      <a href="register.html" class="nav-btn">Register</a>
+      <div id="authButtons">
+      </div>
+      
       
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search products..." />
@@ -363,6 +364,28 @@
         console.error("Error fetching products:", error);
       }
     };
+    function updateAuthButtons() {
+  const authButtons = document.getElementById("authButtons");
+  const isLoggedIn = localStorage.getItem("token"); // or "user" depending on your app
+
+  if (isLoggedIn) {
+    authButtons.innerHTML = `
+      <button id="logoutBtn" class="nav-btn">Logout</button>
+    `;
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token"); // or "user"
+      location.href = "login.html";
+    });
+  } else {
+    authButtons.innerHTML = `
+      <a href="login.html" class="nav-btn">Login</a>
+      <a href="register.html" class="nav-btn">Register</a>
+    `;
+  }
+}
+
+updateAuthButtons();
 
     fetchData();
     updateCartCount();
