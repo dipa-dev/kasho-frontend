@@ -110,36 +110,39 @@
     }
 
     function renderOrders(orders) {
-      const container = document.getElementById("ordersContainer");
+  const container = document.getElementById("ordersContainer");
 
-      if (orders.length === 0) {
-        container.innerHTML = `<div class="no-orders">You have no past orders.</div>`;
-        return;
-      }
+  if (orders.length === 0) {
+    container.innerHTML = `<div class="no-orders">You have no past orders.</div>`;
+    return;
+  }
 
-      orders.forEach(order => {
-        const orderDiv = document.createElement("div");
-        orderDiv.className = "order";
-        const date = new Date(order.createdAt).toLocaleString();
+  orders.forEach(order => {
+    const orderDiv = document.createElement("div");
+    orderDiv.className = "order";
+    const date = new Date(order.createdAt).toLocaleString();
 
-        orderDiv.innerHTML = `
-          <div class="order-id">Order ID: ${order._id}</div>
-          <div class="order-date">Placed on: ${date}</div>
-          <div class="order-items">
-            ${order.items.map(item => `
-              <div class="item">
-                <img src="${item.productId.imageUrl}" alt="${item.productId.productName}" onerror="this.src='https://via.placeholder.com/60'"/>
-                <div class="item-info">
-                  <div class="item-title">${item.productId.productName}</div>
-                  <div class="item-price">Price: ₹${item.productId.sellingPrice }</div>
-                </div>
-              </div>
-            `).join("")}
+    orderDiv.innerHTML = `
+      <div class="order-id">Order ID: ${order._id}</div>
+      <div class="order-date">Placed on: ${date}</div>
+      <div class="order-items">
+        ${order.items.map(item => `
+          <div class="item">
+            <img src="${item.productId.imageUrl}" alt="${item.productId.productName}" onerror="this.src='https://via.placeholder.com/60'"/>
+            <div class="item-info">
+              <div class="item-title">${item.productId.productName}</div>
+              <div class="item-price">Price: ₹${item.productId.sellingPrice}</div>
+              <div class="item-qty">Qty: ${item.qty}</div>
+            </div>
           </div>
-        `;
-        container.appendChild(orderDiv);
-      });
-    }
+        `).join("")}
+      </div>
+      <div class="order-total" style="margin-top: 10px; font-weight: bold;">Total Amount: ₹${order.totalAmount}</div>
+    `;
+    container.appendChild(orderDiv);
+  });
+}
+
 
     fetchOrders();
   </script>
